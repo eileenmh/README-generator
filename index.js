@@ -46,6 +46,12 @@ const questions = inquirer.prompt([
     message: "Write your application's usage information.",
   },
   {
+    type: "search-list",
+    name: "license",
+    message: "Select a license for your application.",
+    choices: licenses,
+  },
+  {
     type: "editor",
     name: "contribution",
     message: "Write your application's contribution guidelines.",
@@ -56,25 +62,14 @@ const questions = inquirer.prompt([
     message: "Write your application's test instructions.",
   },
   {
-    type: "search-list",
-    name: "license",
-    message: "Select a license for your application.",
-    choices: licenses,
-  },
-  {
     type: "input",
     name: "username",
     message: `What is your GitHub username?`,
   },
   {
-    type: "editor",
-    name: "installation",
-    message: "Write your application's installation instructions.",
-  },
-  {
     type: "input",
     name: "email",
-    message: "Write your application's installation instructions.",
+    message: "What is your email address?",
   },
 ]);
 
@@ -87,12 +82,9 @@ function writeToFile(fileName, data) {
 
 // TODO: Create a function to initialize app
 function init() {
-  let fileName = "Example.md";
-  let fileText = "Here's some text";
-
   questions.then((data) => {
     const content = generateMarkdown(data);
-    writeToFile(fileName, content);
+    writeToFile("./output/README.md", content);
   });
 }
 

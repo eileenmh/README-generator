@@ -23,17 +23,19 @@ function generateMarkdown(data) {
   - [Contributing](#contributing)
   - [Tests](#tests)
   - [Questions](#questions)
-  ## Installation\n
-
-  ## Usage\n
-
-  ## License\n
-
-  ## Contributing\n
-
-  ## Tests\n
-
-  ## Questions\n
+  ## Installation
+  ${data.installation}
+  ## Usage
+  ${data.usage}
+  ## License
+  ${data.license}
+  ## Contributing
+  ${data.contribution}
+  ## Tests
+  ${data.test}
+  ## Questions
+  - ${data.username}
+  - ${data.email}
 `;
 }
 

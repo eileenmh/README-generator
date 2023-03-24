@@ -27,7 +27,33 @@ const questions = inquirer.prompt([
     type: "input",
     name: "title",
     message: `What should the title of your README be?`,
-    default: `Untitled`,
+  },
+  {
+    type: "editor",
+    name: "description",
+    message: "Write a description of your application.",
+    default:
+      "Provide a short description explaining the what, why, and how of your project.",
+  },
+  {
+    type: "editor",
+    name: "installation",
+    message: "Write your application's installation instructions.",
+  },
+  {
+    type: "editor",
+    name: "usage",
+    message: "Write your application's usage information.",
+  },
+  {
+    type: "editor",
+    name: "contribution",
+    message: "Write your application's contribution guidelines.",
+  },
+  {
+    type: "editor",
+    name: "test",
+    message: "Write your application's test instructions.",
   },
   {
     type: "search-list",
@@ -39,6 +65,16 @@ const questions = inquirer.prompt([
     type: "input",
     name: "username",
     message: `What is your GitHub username?`,
+  },
+  {
+    type: "editor",
+    name: "installation",
+    message: "Write your application's installation instructions.",
+  },
+  {
+    type: "input",
+    name: "email",
+    message: "Write your application's installation instructions.",
   },
 ]);
 
@@ -55,10 +91,11 @@ function init() {
   let fileText = "Here's some text";
 
   questions.then((data) => {
-    console.log(data);
-    writeToFile(fileName, fileText);
+    const content = generateMarkdown(data);
+    writeToFile(fileName, content);
   });
 }
 
 // Function call to initialize app
+// init();
 init();

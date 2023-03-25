@@ -76,7 +76,7 @@ const questions = inquirer.prompt([
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {
   fs.writeFile(fileName, data, (err) =>
-    err ? console.error(err) : console.log("Commit logged!")
+    err ? console.error(err) : console.log("File is created!")
   );
 }
 
@@ -89,5 +89,4 @@ function init() {
 }
 
 // Function call to initialize app
-// init();
 init();

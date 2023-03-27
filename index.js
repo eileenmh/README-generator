@@ -22,67 +22,112 @@ const licenses = [
   `The Unlicense`,
 ];
 
-const questions = inquirer.prompt([
-  {
-    type: "input",
-    name: "title",
-    message: `What should the title of your README be?`,
-  },
-  {
-    type: "editor",
-    name: "description",
-    message: "Write a description of your application.",
-    default:
-      "Provide a short description explaining the what, why, and how of your project.",
-  },
-  {
-    type: "editor",
-    name: "installation",
-    message: "Write your application's installation instructions.",
-  },
-  {
-    type: "editor",
-    name: "usage",
-    message: "Write your application's usage information.",
-  },
-  {
-    type: "search-list",
-    name: "license",
-    message: "Select a license for your application.",
-    choices: licenses,
-  },
-  {
-    type: "editor",
-    name: "contribution",
-    message: "Write your application's contribution guidelines.",
-  },
-  {
-    type: "editor",
-    name: "test",
-    message: "Write your application's test instructions.",
-  },
-  {
-    type: "input",
-    name: "username",
-    message: `What is your GitHub username?`,
-  },
-  {
-    type: "input",
-    name: "email",
-    message: "What is your email address?",
-  },
-]);
+class Question {
+  constructor(type, name, message, optional) {
+    this.type = type;
+    this.name = name;
+    this.message = message;
+  }
+}
+
+class optionalQuestion extends Question {
+  constructor(type, name, message) {
+    super(type, name, message);
+    this.when = (answers) => {
+      const sections = answers.selectSections.map((section) =>
+        section.toLowerCase()
+      );
+      console.log(sections);
+      return sections.includes(this.name);
+    };
+  }
+}
+
+const title = new Question(
+  "input",
+  "title",
+  "What should the title of your README be?"
+);
+const description = new Question(
+  "editor",
+  "description",
+  "Provide a short description explaining the what, why, and how of your project."
+);
+const selectSections = new Question(
+  "checkbox",
+  "selectSections",
+  "Select which sections you want to include in your readme."
+);
+selectSections.choices = [
+  `Installation`,
+  `Usage`,
+  `License`,
+  `Contribution`,
+  `Test`,
+];
+const installation = new optionalQuestion(
+  "editor",
+  "installation",
+  "Write your application's installation instructions.",
+  true
+);
+const usage = new optionalQuestion(
+  "editor",
+  "usage",
+  "Write your application's usage information."
+);
+const license = new optionalQuestion(
+  "search-list",
+  "license",
+  "Select a license for your application."
+);
+license.choices = licenses;
+
+const contribution = new optionalQuestion(
+  "editor",
+  "contribution",
+  "Write your application's contribution guidelines."
+);
+
+const test = new optionalQuestion(
+  "editor",
+  "test",
+  "Write your application's test instructions."
+);
+
+const username = new Question(
+  "input",
+  "username",
+  "What is your GitHub username?"
+);
+
+const email = new Question("input", "email", "What is your email address?");
+
+const Questions = [
+  title,
+  description,
+  selectSections,
+  installation,
+  usage,
+  license,
+  contribution,
+  test,
+  username,
+  email,
+];
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {
   fs.writeFile(fileName, data, (err) =>
-    err ? console.error(err) : console.log("File is created!")
+    err
+      ? console.error(err)
+      : console.log("Done! Your readme file is saved in the output folder.")
   );
 }
 
 // TODO: Create a function to initialize app
 function init() {
-  questions.then((data) => {
+  inquirer.prompt(Questions).then((data) => {
     const content = generateMarkdown(data);
     writeToFile("./output/README.md", content);
   });

@@ -87,42 +87,30 @@ function renderLicenseSection(license) {
 
 // TODO: Create a function to generate markdown for README
 function generateMarkdown(data) {
-  return `
-  # ${data.title}
-  [![License](${renderLicenseBadge(data.license)})](${renderLicenseLink(
-    data.license
-  )})
+  const content =
+    `# ${data.title}
+## Description
+${data.description}
+## Table of Contents${"\n"}` +
+    (data.installation ? `- [Installation](#installation)${"\n"}` : "") +
+    (data.usage ? `- [Usage](#usage)${"\n"}` : "") +
+    (data.license ? `- [License](#license)${"\n"}` : "") +
+    (data.contribution ? `- [Contributing](#contributing)${"\n"}` : "") +
+    (data.test ? `- [Tests](#tests)${"\n"}` : "") +
+    `- [Questions](#questions)${"\n" + "\n"}` +
+    (data.installation
+      ? `## Installation${"\n" + data.installation + "\n" + "\n"}`
+      : "") +
+    (data.usage ? `## Usage${"\n" + data.usage + "\n" + "\n"}` : "") +
+    (data.license ? `## License${"\n" + data.license + "\n" + "\n"}` : "") +
+    (data.contribution
+      ? `## Contributing${"\n" + data.contribution + "\n" + "\n"}`
+      : "") +
+    (data.test ? `## Tests${"\n" + data.test + "\n" + "\n"}` : "") +
+    `## Questions
+If you have a question about this project, you can reach [${data.username}](https://github.com/${data.username}) by sending an email to ${data.email}.`;
 
-  ## Description
-  ${data.description}
-
-  ## Table of Contents
-  - [Installation](#installation)
-  - [Usage](#usage)
-  - [License](#license)
-  - [Contributing](#contributing)
-  - [Tests](#tests)
-  - [Questions](#questions)
-
-  ## Installation
-  ${data.installation}
-
-  ## Usage
-  ${data.usage}
-
-  ## License
-  ${renderLicenseSection(data.license)}
-
-  ## Contributing
-  ${data.contribution}
-
-  ## Tests
-  ${data.test}
-
-  ## Questions
-  - ${data.username}
-  - ${data.email}
-`;
+  return content;
 }
 
 module.exports = generateMarkdown;

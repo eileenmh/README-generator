@@ -1,5 +1,6 @@
 // Node.js Packages
 const fs = require("fs");
+const fse = require("fs-extra");
 const inquirer = require("inquirer");
 const generateMarkdown = require("./utils/generateMarkdown");
 
@@ -130,7 +131,12 @@ function writeToFile(fileName, data) {
 function init() {
   inquirer.prompt(Questions).then((data) => {
     const content = generateMarkdown(data);
-    writeToFile("./output/README.md", content);
+    fse
+      .ensureDir("output")
+      .then(writeToFile("./output/README.md", content))
+      .catch((err) => {
+        console.error(err);
+      });
   });
 }
 

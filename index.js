@@ -131,13 +131,12 @@ function writeToFile(fileName, data) {
 function init() {
   inquirer.prompt(Questions).then((data) => {
     const content = generateMarkdown(data);
-    writeToFile("./output/README.md", content);
-    // fse
-    //   .ensureDir("output")
-    //   .then(writeToFile("./output/README.md", content))
-    //   .catch((err) => {
-    //     console.error(err);
-    //   });
+    fse
+      .ensureDir("output")
+      .then(writeToFile("./output/README.md", content))
+      .catch((err) => {
+        console.error(err);
+      });
   });
 }
 

@@ -119,7 +119,7 @@ const Questions = [
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {
-  fs.writeFile(fileName, data, (err) =>
+  fs.writeFile(fileName, data, { flag: "wx" }, (err) =>
     err
       ? console.error(err)
       : console.log("Done! Your readme file is saved in the output folder.")

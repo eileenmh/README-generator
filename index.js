@@ -37,12 +37,12 @@ class optionalQuestion extends Question {
       const sections = answers.selectSections.map((section) =>
         section.toLowerCase()
       );
-      console.log(sections);
       return sections.includes(this.name);
     };
   }
 }
 
+// Questions
 const title = new Question(
   "input",
   "title",
@@ -53,6 +53,7 @@ const description = new Question(
   "description",
   "Provide a short description explaining the what, why, and how of your project."
 );
+
 const selectSections = new Question(
   "checkbox",
   "selectSections",

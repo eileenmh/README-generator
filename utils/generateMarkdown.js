@@ -65,7 +65,7 @@ const licenses = [
 // If there is no license, return an empty string
 function renderLicenseBadge(license) {
   var filteredLicense = licenses.find((obj) => obj.name === license);
-  return license ? filteredLicense.badge : "";
+  return license ? `![license badge](${filteredLicense.badge})` : "";
 }
 
 // TODO: Create a function that returns the license link
@@ -79,7 +79,7 @@ function renderLicenseLink(license) {
 // If there is no license, return an empty string
 function renderLicenseSection(license) {
   return license
-    ? `This app is licensed under the **[${license}](${renderLicenseLink(
+    ? `This app is licensed under **[${license}](${renderLicenseLink(
         license
       )})**.`
     : "";
@@ -88,8 +88,9 @@ function renderLicenseSection(license) {
 // TODO: Create a function to generate markdown for README
 function generateMarkdown(data) {
   const content =
-    `# ${data.title}
-## Description
+    `# ${data.title} ` +
+    renderLicenseBadge(data.license) +
+    `${"\n"}## Description
 ${data.description}
 ## Table of Contents${"\n"}` +
     (data.installation ? `- [Installation](#installation)${"\n"}` : "") +
@@ -102,7 +103,9 @@ ${data.description}
       ? `## Installation${"\n" + data.installation + "\n" + "\n"}`
       : "") +
     (data.usage ? `## Usage${"\n" + data.usage + "\n" + "\n"}` : "") +
-    (data.license ? `## License${"\n" + data.license + "\n" + "\n"}` : "") +
+    (data.license
+      ? `## License${"\n" + renderLicenseSection(data.license) + "\n" + "\n"}`
+      : "") +
     (data.contribution
       ? `## Contributing${"\n" + data.contribution + "\n" + "\n"}`
       : "") +

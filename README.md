@@ -48,6 +48,9 @@ node index.js
 This will start the prompts for what to put in the README. Once you've answered all of the questions, you'll find the README in the 'output' folder.
 
 ## Built With
+- [Node.js](https://nodejs.org/en)
+- [Inquirer.js](https://www.npmjs.com/package/inquirer)
+- [fs-extra](https://github.com/jprichardson/node-fs-extra)
 
 ## Credits
 

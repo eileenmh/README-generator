@@ -123,7 +123,7 @@ function writeToFile(fileName, data) {
   fs.writeFile(fileName, data, (err) =>
     err
       ? console.error(err)
-      : console.log("Done! Your readme file is saved in the output folder.")
+      : console.log("Done! Your README file is saved in the output folder.")
   );
 }
 
